@@ -15,20 +15,16 @@ pipeline {
             }
           }
 
-          stage ("switch the directory") {
+          stage ("Terraform Init") {
                 steps {
                     dir("${env.WORKSPACE}"){
+                      withAWS(credentials: "AWSCLI", region: 'us-east-2')  {  
                         bat "terraform init"
+                      }  
                     }
                 }
             }  
-          stage("Terraform Init") {
-            steps {
-                dir("${env.WORKSPACE}"){
-                    bat 'terraform init'
-                }
-            }
-          }
+
         stage("Terraform Plan") {
             steps {
                 dir("${env.WORKSPACE}"){
