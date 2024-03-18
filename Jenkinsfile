@@ -14,6 +14,14 @@ pipeline {
                 }
             }
           }
+
+          stage ("switch the directory") {
+                steps {
+                    dir("${env.WORKSPACE}"){
+                        sh "pwd"
+                    }
+                }
+            }  
           stage("Terraform Init") {
             steps {
                 script {
