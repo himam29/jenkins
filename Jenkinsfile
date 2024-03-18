@@ -10,7 +10,7 @@ pipeline {
           stage("Run Terraform") {
             steps {
                 script {
-                    sh 'terraform --version'
+                    bat 'terraform --version'
                 }
             }
           }
@@ -39,7 +39,7 @@ pipeline {
          stage("Terraform Apply") {
             steps {
                 dir("${env.WORKSPACE}"){
-                    sh 'terraform apply --auto-approve'
+                    bat 'terraform apply --auto-approve'
                 }
             }
          }
