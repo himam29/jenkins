@@ -18,27 +18,27 @@ pipeline {
           stage ("switch the directory") {
                 steps {
                     dir("${env.WORKSPACE}"){
-                        sh "pwd"
+                        bat "terraform init"
                     }
                 }
             }  
           stage("Terraform Init") {
             steps {
-                script {
-                    sh 'terraform init'
+                dir("${env.WORKSPACE}"){
+                    bat 'terraform init'
                 }
             }
           }
         stage("Terraform Plan") {
             steps {
-                script {
-                    sh 'terraform plan'
+                dir("${env.WORKSPACE}"){
+                    bat 'terraform plan'
                 }
             }
         }
          stage("Terraform Apply") {
             steps {
-                script {
+                dir("${env.WORKSPACE}"){
                     sh 'terraform apply --auto-approve'
                 }
             }
@@ -51,8 +51,8 @@ pipeline {
         }
        stage("Terraform Destroy") {
             steps {
-                script {
-                    sh 'terraform destroy --auto-approve'
+                dir("${env.WORKSPACE}"){
+                    bat 'terraform destroy --auto-approve'
                 }
             }
          }
