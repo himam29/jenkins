@@ -27,14 +27,14 @@ pipeline {
 
         stage("Terraform Plan") {
             steps {
-                dir("${env.WORKSPACE}"){
+                withAWS(credentials: "AWSCLI", region: 'us-east-2') {
                     bat 'terraform plan'
                 }
             }
         }
          stage("Terraform Apply") {
             steps {
-                dir("${env.WORKSPACE}"){
+                withAWS(credentials: "AWSCLI", region: 'us-east-2') {
                     bat 'terraform apply --auto-approve'
                 }
             }
@@ -47,7 +47,7 @@ pipeline {
         }
        stage("Terraform Destroy") {
             steps {
-                dir("${env.WORKSPACE}"){
+                withAWS(credentials: "AWSCLI", region: 'us-east-2') {
                     bat 'terraform destroy --auto-approve'
                 }
             }
